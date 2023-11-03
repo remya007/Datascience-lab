@@ -1,0 +1,198 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMngqT3ky90FHj8R+/Y/ndi",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Pournami-Prasad27/Datascience-lab/blob/main/pandas2\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 5,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7xvZOwPXdTTs",
+        "outputId": "885c1655-8887-4120-b06a-c61b8272fefc"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Overview of dataframe :\n",
+            "   1|24|M|technician|85711\n",
+            "0       2|53|F|other|94043\n",
+            "1      3|23|M|writer|32067\n",
+            "2  4|24|M|technician|43537\n",
+            "3       5|33|F|other|15213\n",
+            "4   6|42|M|executive|98101\n",
+            "Shape : (942, 1)\n",
+            "\n",
+            "Dataframe after modifying the default parameter values for read_table:\n",
+            "   user_id  age gender  occupation zip_code&\n",
+            "0        1   24      M  technician     85711\n",
+            "1        2   53      F       other     94043\n",
+            "2        3   23      M      writer     32067\n",
+            "3        4   24      M  technician     43537\n",
+            "4        5   33      F       other     15213\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "orders = pd.read_table('http://bit.ly/movieusers')\n",
+        "print(\"Overview of dataframe :\")\n",
+        "print(orders.head())\n",
+        "print(\"Shape :\",orders.shape)\n",
+        "print()\n",
+        "user_cols = ['user_id','age','gender','occupation', 'zip_code&']\n",
+        "users = pd.read_table('http://bit.ly/movieusers', sep='|', header=None,\n",
+        "names=user_cols)\n",
+        "print(\"Dataframe after modifying the default parameter values for read_table:\")\n",
+        "print(users.head())"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "#read a csv file\n",
+        "ufo = pd.read_csv('http://bit.ly/uforeports&#39')\n",
+        "print(\"Overview of UFO data reports:\" )\n",
+        "print(ufo.head())\n",
+        "print()\n",
+        "#series\n",
+        "print(\"Cityseries(sorted)\")\n",
+        "print(ufo.City.sort_values())\n",
+        "print()\n",
+        "ufo['Location'] = ufo.City + ','  + ufo.State\n",
+        "print(\"After creating a new 'Location' Series :\")\n",
+        "print(ufo.head())\n",
+        "print()\n",
+        "print(\"Calculate summary statistics :\" )\n",
+        "print(ufo.describe())\n",
+        "print()\n",
+        "print(\"Column names of ufo dataframe : \",ufo.columns)\n",
+        "print()\n",
+        "# rename two of the columns by using the &#39;rename&#39; method\n",
+        "ufo.rename(columns={'Colors Reported':'Colors_Reported',\n",
+        "'Shape Reported':'Shape_Reported'},inplace=True)\n",
+        "print(\"Column name of ufo dataframe after renaming two column names :\",ufo.columns)\n",
+        "print()\n",
+        "# remove multiple columns at once\n",
+        "ufo.drop(['City','State'], axis=1, inplace=True)\n",
+        "print(\"Column name of ufo dataframe after removing two columns(city,state) :\",ufo.columns)\n",
+        "print()\n",
+        "# remove multiple rows at once (axis=0 refers to rows)\n",
+        "ufo.drop([0, 1], axis=0, inplace=True)\n",
+        "print(\"ufo dataframe after deleting first two rows: \")\n",
+        "print(ufo.head())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "M1Wc9uAlhkzb",
+        "outputId": "b7282c04-1ad0-4730-8a0c-249896354a96"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Overview of UFO data reports:\n",
+            "                   City Colors Reported Shape Reported State             Time\n",
+            "0                Ithaca             NaN       TRIANGLE    NY   6/1/1930 22:00\n",
+            "1           Willingboro             NaN          OTHER    NJ  6/30/1930 20:00\n",
+            "2               Holyoke             NaN           OVAL    CO  2/15/1931 14:00\n",
+            "3               Abilene             NaN           DISK    KS   6/1/1931 13:00\n",
+            "4  New York Worlds Fair             NaN          LIGHT    NY  4/18/1933 19:00\n",
+            "\n",
+            "Cityseries(sorted)\n",
+            "1761     Abbeville\n",
+            "4553      Aberdeen\n",
+            "16167     Aberdeen\n",
+            "14703     Aberdeen\n",
+            "389       Aberdeen\n",
+            "           ...    \n",
+            "12441          NaN\n",
+            "15767          NaN\n",
+            "15812          NaN\n",
+            "16054          NaN\n",
+            "16608          NaN\n",
+            "Name: City, Length: 18241, dtype: object\n",
+            "\n",
+            "After creating a new 'Location' Series :\n",
+            "                   City Colors Reported Shape Reported State             Time  \\\n",
+            "0                Ithaca             NaN       TRIANGLE    NY   6/1/1930 22:00   \n",
+            "1           Willingboro             NaN          OTHER    NJ  6/30/1930 20:00   \n",
+            "2               Holyoke             NaN           OVAL    CO  2/15/1931 14:00   \n",
+            "3               Abilene             NaN           DISK    KS   6/1/1931 13:00   \n",
+            "4  New York Worlds Fair             NaN          LIGHT    NY  4/18/1933 19:00   \n",
+            "\n",
+            "                  Location  \n",
+            "0                Ithaca,NY  \n",
+            "1           Willingboro,NJ  \n",
+            "2               Holyoke,CO  \n",
+            "3               Abilene,KS  \n",
+            "4  New York Worlds Fair,NY  \n",
+            "\n",
+            "Calculate summary statistics :\n",
+            "           City Colors Reported Shape Reported  State              Time  \\\n",
+            "count     18216            2882          15597  18241             18241   \n",
+            "unique     6476              27             27     52             16145   \n",
+            "top     Seattle             RED          LIGHT     CA  11/16/1999 19:00   \n",
+            "freq        187             780           2803   2529                27   \n",
+            "\n",
+            "          Location  \n",
+            "count        18216  \n",
+            "unique        8029  \n",
+            "top     Seattle,WA  \n",
+            "freq           187  \n",
+            "\n",
+            "Column names of ufo dataframe :  Index(['City', 'Colors Reported', 'Shape Reported', 'State', 'Time',\n",
+            "       'Location'],\n",
+            "      dtype='object')\n",
+            "\n",
+            "Column name of ufo dataframe after renaming two column names : Index(['City', 'Colors_Reported', 'Shape_Reported', 'State', 'Time',\n",
+            "       'Location'],\n",
+            "      dtype='object')\n",
+            "\n",
+            "Column name of ufo dataframe after removing two columns(city,state) : Index(['Colors_Reported', 'Shape_Reported', 'Time', 'Location'], dtype='object')\n",
+            "\n",
+            "ufo dataframe after deleting first two rows: \n",
+            "  Colors_Reported Shape_Reported             Time                 Location\n",
+            "2             NaN           OVAL  2/15/1931 14:00               Holyoke,CO\n",
+            "3             NaN           DISK   6/1/1931 13:00               Abilene,KS\n",
+            "4             NaN          LIGHT  4/18/1933 19:00  New York Worlds Fair,NY\n",
+            "5             NaN           DISK  9/15/1934 15:30           Valley City,ND\n",
+            "6             NaN         CIRCLE   6/15/1935 0:00           Crater Lake,CA\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
