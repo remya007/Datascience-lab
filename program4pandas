@@ -1,0 +1,78 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMjA3aeh+E8e+AGlscwlPPz",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Pournami-Prasad27/Datascience-lab/blob/main/program4pandas\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 5,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7xvZOwPXdTTs",
+        "outputId": "885c1655-8887-4120-b06a-c61b8272fefc"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Overview of dataframe :\n",
+            "   1|24|M|technician|85711\n",
+            "0       2|53|F|other|94043\n",
+            "1      3|23|M|writer|32067\n",
+            "2  4|24|M|technician|43537\n",
+            "3       5|33|F|other|15213\n",
+            "4   6|42|M|executive|98101\n",
+            "Shape : (942, 1)\n",
+            "\n",
+            "Dataframe after modifying the default parameter values for read_table:\n",
+            "   user_id  age gender  occupation zip_code&\n",
+            "0        1   24      M  technician     85711\n",
+            "1        2   53      F       other     94043\n",
+            "2        3   23      M      writer     32067\n",
+            "3        4   24      M  technician     43537\n",
+            "4        5   33      F       other     15213\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "orders = pd.read_table('http://bit.ly/movieusers')\n",
+        "print(\"Overview of dataframe :\")\n",
+        "print(orders.head())\n",
+        "print(\"Shape :\",orders.shape)\n",
+        "print()\n",
+        "user_cols = ['user_id','age','gender','occupation', 'zip_code&']\n",
+        "users = pd.read_table('http://bit.ly/movieusers', sep='|', header=None,\n",
+        "names=user_cols)\n",
+        "print(\"Dataframe after modifying the default parameter values for read_table:\")\n",
+        "print(users.head())"
+      ]
+    }
+  ]
+}
